@@ -322,15 +322,19 @@ command tersebut akan menambahkan rule ke `iptables` untuk membatasi `ICMP` seba
 Percobaan `ping` ke Jipangu
 
 1. Elena
+
 ![2-1](https://user-images.githubusercontent.com/73921231/145673921-9603ee0f-0dda-46d9-948f-4580bea7c4fa.jpeg)
 
 2. Blueno
+
 ![2-2](https://user-images.githubusercontent.com/73921231/145673924-53b1aba9-5bdd-4c36-afe6-3197a7eebe03.jpeg)
 
 3. Fukurou
+
 ![2-3](https://user-images.githubusercontent.com/73921231/145673943-932e6545-63aa-4043-b239-3f1cecac87f0.jpeg)
 
 4. Chiper
+
 ![2-4](https://user-images.githubusercontent.com/73921231/145673951-71f295dd-b91a-463f-8e88-8c041df06e28.jpeg)
 
 Dari percobaan tersebut dapat terlihat bahwa pada `ping` ke-empat (lebih dari 3) di Chiper akan terhenti karena adanya rule `iptables` tadi
