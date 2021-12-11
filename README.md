@@ -281,8 +281,60 @@ service isc-dhcp-server restart
 ![image](https://user-images.githubusercontent.com/73152464/145670768-fe1d8f8c-28ba-4f32-9bc9-9f51398b4799.png)
 
 ### 1. Agar topologi yang kalian buat dapat mengakses keluar, kalian diminta untuk mengkonfigurasi Foosha menggunakan iptables, tetapi Luffy tidak ingin menggunakan MASQUERADE.
+
+digunakan `SNAT` untuk menjalankan `iptables` nya, command:
+
+```bash
+IPETH0="$(ip -br a | grep eth0 | awk '{print $NF}' | cut -d'/' -f1)"
+iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source "$IPETH0" -s 10.43.0.0/21
+```
+
+command tersebut akan mengambil ip dhcp pada foosha untuk dijadikan `--to-source` pada `iptables SNAT`. digunakannya `grep` dan `awk` untuk mengotomasi supaya saat project ter-close, ip dhcp yang berganti-ganti maka akan otomatis terganti pada `iptables` nya.
+
+Percobaan `ping google.com` pada Fukurou dan Foosha
+
+![1-1](https://user-images.githubusercontent.com/73921231/145673719-49b1d76a-a1e9-460e-a802-2ed392a2a84b.jpg)
+
+![1-2](https://user-images.githubusercontent.com/73921231/145673741-127ce4f5-dd00-4251-bb72-ac1bb79c97ad.jpg)
+
+
 ### 2. Kalian diminta untuk mendrop semua akses HTTP dari luar Topologi kalian pada server yang merupakan DHCP Server dan DNS Server demi menjaga keamanan.
+
+Karena akses dari luar pasti akan melalui Foosha, maka pada Foosha dijalankan command iptables sebagai berikut
+
+```bash
+iptables -A FORWARD -d 10.43.0.11 -i eth0 -p tcp --dport 80 -j DROP
+iptables -A FORWARD -d 10.43.0.10 -i eth0 -p tcp --dport 80 -j DROP
+```
+
+apabila terdapat request akses menuju ke Doriki (DNS Server) dan Jipangu (DHCP Server) pada port 80 (HTTP) maka akan di drop
+
 ### 3. Karena kelompok kalian maksimal terdiri dari 3 orang. Luffy meminta kalian untuk membatasi DHCP dan DNS Server hanya boleh menerima maksimal 3 koneksi ICMP secara bersamaan menggunakan iptables, selebihnya didrop.
+
+Pada Doriki (DNS Server) dan Jipangu (DHCP Server), dijalankan command sebagai berikut
+
+```bash
+iptables -A INPUT -p icmp -m connlimit --connlimit-above 3 --connlimit-mask 0 -j DROP
+```
+
+command tersebut akan menambahkan rule ke `iptables` untuk membatasi `ICMP` sebanyak 3 client menggunakan `--connlimit`
+
+Percobaan `ping` ke Jipangu
+
+1. Elena
+![2-1](https://user-images.githubusercontent.com/73921231/145673921-9603ee0f-0dda-46d9-948f-4580bea7c4fa.jpeg)
+
+2. Blueno
+![2-2](https://user-images.githubusercontent.com/73921231/145673924-53b1aba9-5bdd-4c36-afe6-3197a7eebe03.jpeg)
+
+3. Fukurou
+![2-3](https://user-images.githubusercontent.com/73921231/145673943-932e6545-63aa-4043-b239-3f1cecac87f0.jpeg)
+
+4. Chiper
+![2-4](https://user-images.githubusercontent.com/73921231/145673951-71f295dd-b91a-463f-8e88-8c041df06e28.jpeg)
+
+Dari percobaan tersebut dapat terlihat bahwa pada `ping` ke-empat (lebih dari 3) di Chiper akan terhenti karena adanya rule `iptables` tadi
+
 ### 4. Akses dari subnet Blueno dan Cipher hanya diperbolehkan pada pukul 07.00 - 15.00 pada hari Senin sampai Kamis.
 Pada node DORIKI, inputkan command sebagai berikut
 ```
