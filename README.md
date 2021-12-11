@@ -295,10 +295,15 @@ iptables -A INPUT -s 10.45.0.0/22 -m time --weekdays Fri,Sat,Sun -j REJECT
 iptables -A INPUT -s 10.45.0.0/22 -m time --timestart 00:00 --timestop 06:59 --weekdays Mon,Tue,Wed,Thu -j REJECT
 iptables -A INPUT -s 10.45.0.0/22 -m time --timestart 15:01 --timestop 23:59 --weekdays Mon,Tue,Wed,Thu -j REJECT
 ```
+
 ![image](https://user-images.githubusercontent.com/61416036/145673281-b0d28274-c126-458d-ae4b-3f3d191bd891.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673283-eb577c42-31a0-4503-b186-7a382cb98270.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673287-e9c8cc50-3db8-41e2-b343-a5f9cf7e6a26.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673290-ca808406-c3aa-40dd-b2be-d0d14023bcf7.png)
+
 
 ### 5. Akses dari subnet Elena dan Fukuro hanya diperbolehkan pada pukul 15.01 hingga pukul 06.59 setiap harinya.
 Pada node DORIKI, inputkan command sebagai berikut
@@ -308,10 +313,15 @@ iptables -A INPUT -s 10.45.4.0/23 -m time --timestart 07:00 --timestop 15:00 -j 
 #Fukuro
 iptables -A INPUT -s 10.45.6.0/24 -m time --timestart 07:00 --timestop 15:00 -j REJECT 
 ```
+
 ![image](https://user-images.githubusercontent.com/61416036/145673265-23a0ddba-c3b1-4b82-8fe9-6b60a789d8e1.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673266-ddea6d60-3466-425d-8e1e-1fbfd945d658.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673268-ffd3ca77-61e7-442c-b2d3-ccf37bb45266.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673270-12a3dd4f-78e1-43ee-9c47-81a1c39f1590.png)
+
 
 ### 6. Karena kita memiliki 2 Web Server, Luffy ingin Guanhao disetting sehingga setiap request dari client yang mengakses DNS Server akan didistribusikan secara bergantian pada Jorge dan Maingate
 Pada node GUANHAO, inputkan command sebagai berikut
@@ -320,9 +330,16 @@ iptables -A PREROUTING -t nat -p tcp -d 10.45.7.130 -m statistic --mode nth --ev
 iptables -A PREROUTING -t nat -p tcp -d 10.45.7.130 -j DNAT --to-destination 10.45.7.139:80
 ```
 Pada server JORGE lakuka listening di port 80 dengan `nc -l -p 80`. Setelah itu ELENA melakukan koneksi menggunakan netcat dengan `nc 10.43.0.10 80`
+
 ![image](https://user-images.githubusercontent.com/61416036/145673326-bbb36dcb-af91-48c8-b813-e121deb1706e.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673328-f5123099-c6ae-4bd5-a93c-20bee75029dd.png)
+
+
 Pada server MAINGATE lakuka listening di port 80 dengan `nc -l -p 80`. Setelah itu ELENA melakukan koneksi menggunakan netcat dengan `nc 10.43.0.10 80`
+
 ![image](https://user-images.githubusercontent.com/61416036/145673330-3ace2b97-81e6-41ba-85f6-ee88e9c0e1f4.png)
+
 ![image](https://user-images.githubusercontent.com/61416036/145673333-2b3e9b87-c201-4ef0-ae78-0a80e1ca22ec.png)
+
 
