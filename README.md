@@ -137,30 +137,30 @@ Konfigurasi di Blueno, Chiper, Elena, Fukurou (Client)
 
 Routing di Foosha agar semua server dan PC terhubung ke Foosha.
 
-# Ke arah Blueno (A2 /25) dengan gateway IP Water7
+- Ke arah Blueno (A2 /25) dengan gateway IP Water7
 ```
 route add -net 10.43.0.128 netmask 255.255.255.128 gw 10.43.0.2 
 ```
-#Ke arah Chiper (A3 /22) dengan gateway IP Water7
-`
+- Ke arah Chiper (A3 /22) dengan gateway IP Water7
+```
 route add -net 10.43.4.0 netmask 255.255.252.0 gw 10.43.0.2 
-`
-#Ke arah Doriki & Jipangu (A4 /29) dengan gateway IP Water7
-`
+```
+- Ke arah Doriki & Jipangu (A4 /29) dengan gateway IP Water7
+```
 route add -net 10.43.0.8 netmask 255.255.255.248 gw 10.43.0.2
-`
-#Ke arah Elena (A6 /23) dengan gateway IP Guanhao
-`
+```
+- Ke arah Elena (A6 /23) dengan gateway IP Guanhao
+```
 route add -net 10.43.2.0 netmask 255.255.254.0 gw 10.43.0.6
-`
-#Ke arah Fukurou (A7 /24) dengan gateway IP Guanhao
-`
+```
+- Ke arah Fukurou (A7 /24) dengan gateway IP Guanhao
+```
 route add -net 10.43.1.0 netmask 255.255.255.0 gw 10.43.0.6 
-`
-#Ke arah Jorge & maingate (A8 /29) dengan gateway IP Guanhao
-`
+```
+- Ke arah Jorge & maingate (A8 /29) dengan gateway IP Guanhao
+```
 route add -net 10.43.0.16 netmask 255.255.255.248 gw 10.43.0.6 
-`
+```
 
 ### D. Tugas berikutnya adalah memberikan ip pada subnet Blueno, Cipher, Fukurou, dan Elena secara dinamis menggunakan bantuan DHCP server. Kemudian kalian ingat bahwa kalian harus setting DHCP Relay pada router yang menghubungkannya.
 
@@ -169,7 +169,7 @@ Jawab:
 ####Mengatur DHCP Relay
 
 Pada Foosha install DHCP Relay
-`
+```
 apt-get update
 apt-get install isc-dhcp-relay -y
 
@@ -179,12 +179,12 @@ INTERFACES="eth2 eth1"
 OPTIONS=""
 ' > /etc/default/isc-dhcp-relay
 service isc-dhcp-relay restart
-`
+```
 
 ![image](https://user-images.githubusercontent.com/73152464/145670570-b7068b73-f7ce-4ede-9775-4486bbaf0810.png)
 
 Pada Water7 install DHCP Relay
-`
+```
 echo "nameserver 192.168.122.1" > /etc/resolv.conf
 apt update
 apt install isc-dhcp-relay -y
@@ -194,12 +194,12 @@ INTERFACES="eth2 eth3 eth0 eth1"
 OPTIONS=""
 ' > /etc/default/isc-dhcp-relay
 service isc-dhcp-relay restart
-`
+```
 
 ![image](https://user-images.githubusercontent.com/73152464/145670610-6f410d18-cbcc-4dc4-b18a-818624447645.png)
 
 Pada Guanhao install DHCP Relay
-`
+```
 echo "nameserver 192.168.122.1" > /etc/resolv.conf
 apt update
 apt install isc-dhcp-relay -y
@@ -209,25 +209,26 @@ INTERFACES="eth2 eth3 eth1 eth0"
 OPTIONS=""
 ' > /etc/default/isc-dhcp-relay
 service isc-dhcp-relay restart
-`
+```
+
 ![image](https://user-images.githubusercontent.com/73152464/145670651-4eda1900-719e-4812-9921-ae8a9754cc04.png)
 
 ####Mengatur DHCP Server
 
 Pada Jipangu install DHCP Server
 
-`
+```
 echo "nameserver 192.168.122.1" > /etc/resolv.conf
 apt update
 apt install isc-dhcp-server -y
 echo '
 INTERFACES="eth0"
 ' > /etc/default/isc-dhcp-server
-`
+```
 
 ![image](https://user-images.githubusercontent.com/73152464/145670752-4d7029eb-8d9e-4b17-a5d7-67e414277ba0.png)
 
-`
+```
 echo '
 ddns-update-style none;
 option domain-name "example.org";
@@ -273,5 +274,6 @@ subnet 10.43.0.0 netmask 255.255.255.252 {}
 subnet 10.43.0.16 netmask 255.255.255.248 {}
 ' > /etc/dhcp/dhcpd.conf
 service isc-dhcp-server restart
-`
+```
+
 ![image](https://user-images.githubusercontent.com/73152464/145670768-fe1d8f8c-28ba-4f32-9bc9-9f51398b4799.png)
