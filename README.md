@@ -7,7 +7,7 @@ Keterangan :
 
 ![image](https://user-images.githubusercontent.com/73152464/145668906-f99a023a-a4d3-4141-b8f5-e8fc508b12e0.png)
 
-    `
+    
     Doriki adalah DNS Server
     Jipangu adalah DHCP Server
     Maingate dan Jorge adalah Web Server
@@ -15,7 +15,6 @@ Keterangan :
     Jumlah Host pada Cipher adalah 700 host
     Jumlah Host pada Elena adalah 300 host
     Jumlah Host pada Fukurou adalah 200 host
-    `
 
 Jawab: Berikut adalah topologi yang telah dibuat
 
@@ -46,102 +45,102 @@ Dari pohon tersebut akan mendapat pembagian IP sebagai berikut.
 Jawab:
 
 Konfigurasi di Foosha (DHCP Relay)
-`
-auto eth0
-iface eth0 inet dhcp
 
-auto eth1
-iface eth1 inet static
-	address 10.43.0.1
-	netmask 255.255.255.252
+	auto eth0
+	iface eth0 inet dhcp
 
-auto eth2
-iface eth2 inet static
-	address 10.43.0.5
-	netmask 255.255.255.252
-`
+	auto eth1
+	iface eth1 inet static
+		address 10.43.0.1
+		netmask 255.255.255.252
+
+	auto eth2
+	iface eth2 inet static
+		address 10.43.0.5
+		netmask 255.255.255.252
+
 Konfigurasi di Water7 (DHCP Relay)
-`
-auto eth0
-iface eth0 inet static
-	address 10.43.0.2
-	netmask 255.255.255.252
-auto eth1
-iface eth1 inet static
-	address 10.43.0.9
-	netmask 255.255.255.248
-auto eth2
-iface eth2 inet static
-	address 10.43.0.129
-	netmask 255.255.255.128
-auto eth3
-iface eth3 inet static
-	address 10.43.4.1
-	netmask 255.255.252.0
-`
+
+	auto eth0
+	iface eth0 inet static
+		address 10.43.0.2
+		netmask 255.255.255.252
+	auto eth1
+	iface eth1 inet static
+		address 10.43.0.9
+		netmask 255.255.255.248
+	auto eth2
+	iface eth2 inet static
+		address 10.43.0.129
+		netmask 255.255.255.128
+	auto eth3
+	iface eth3 inet static
+		address 10.43.4.1
+		netmask 255.255.252.0
+
 Konfigurasi di Guanhao (DHCP Relay)
-`
-auto eth0
-iface eth0 inet static
-	address 10.43.0.6
-	netmask 255.255.255.252
-auto eth1
-iface eth1 inet static
-	address  10.43.0.17
-	netmask 255.255.255.248
-auto eth2
-iface eth2 inet static
-	address  10.43.2.1
-	netmask 255.255.254.0
-auto eth3
-iface eth3 inet static
-	address  10.43.1.1
-	netmask 255.255.255.0
-`
+
+	auto eth0
+	iface eth0 inet static
+		address 10.43.0.6
+		netmask 255.255.255.252
+	auto eth1
+	iface eth1 inet static
+		address  10.43.0.17
+		netmask 255.255.255.248
+	auto eth2
+	iface eth2 inet static
+		address  10.43.2.1
+		netmask 255.255.254.0
+	auto eth3
+	iface eth3 inet static
+		address  10.43.1.1
+		netmask 255.255.255.0
+
 Konfigurasi di Jipangu (DHCP Server)
-`
-auto eth0
-iface eth0 inet static
-	address 10.43.0.11
-	netmask 255.255.255.248
-        gateway 10.43.0.9
-`
+
+	auto eth0
+	iface eth0 inet static
+		address 10.43.0.11
+		netmask 255.255.255.248
+		gateway 10.43.0.9
+
 Konfigurasi di Doriki (DNS Server)
-`
-auto eth0
-iface eth0 inet static
-	address 10.43.0.10
-	netmask 255.255.255.248
-        gateway 10.43.0.9
-`
+
+	auto eth0
+	iface eth0 inet static
+		address 10.43.0.10
+		netmask 255.255.255.248
+		gateway 10.43.0.9
+
 Konfigurasi di Maingate (Web Server)
-`
-auto eth0
-iface eth0 inet static
-	address 10.43.0.19
-	netmask 255.255.255.248
-        gateway 10.43.0.17
-`
+
+	auto eth0
+	iface eth0 inet static
+		address 10.43.0.19
+		netmask 255.255.255.248
+		gateway 10.43.0.17
+
 Konfigurasi di Jorge (Web Server)
-`
-auto eth0
-iface eth0 inet static
-	address 10.43.0.18
-	netmask 255.255.255.248
-        gateway 10.43.0.17
-`
+
+	auto eth0
+	iface eth0 inet static
+		address 10.43.0.18
+		netmask 255.255.255.248
+		gateway 10.43.0.17
+
 Konfigurasi di Blueno, Chiper, Elena, Fukurou (Client)
-`
-auto eth0
-iface eth0 inet dhcp
-`
+
+	auto eth0
+	iface eth0 inet dhcp
+
 
 Routing di Foosha agar semua server dan PC terhubung ke Foosha.
 
 # Ke arah Blueno (A2 /25) dengan gateway IP Water7
-`
+```
 route add -net 10.43.0.128 netmask 255.255.255.128 gw 10.43.0.2 
-`
+```
 #Ke arah Chiper (A3 /22) dengan gateway IP Water7
 `
 route add -net 10.43.4.0 netmask 255.255.252.0 gw 10.43.0.2 
