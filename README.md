@@ -166,7 +166,7 @@ route add -net 10.43.0.16 netmask 255.255.255.248 gw 10.43.0.6
 
 Jawab:
 
-####Mengatur DHCP Relay
+#### Mengatur DHCP Relay
 
 Pada Foosha install DHCP Relay
 ```
@@ -213,7 +213,7 @@ service isc-dhcp-relay restart
 
 ![image](https://user-images.githubusercontent.com/73152464/145670651-4eda1900-719e-4812-9921-ae8a9754cc04.png)
 
-####Mengatur DHCP Server
+#### Mengatur DHCP Server
 
 Pada Jipangu install DHCP Server
 
@@ -227,6 +227,8 @@ INTERFACES="eth0"
 ```
 
 ![image](https://user-images.githubusercontent.com/73152464/145670752-4d7029eb-8d9e-4b17-a5d7-67e414277ba0.png)
+
+Kemudian edit pada file /etc/dhcp/dhcpd.conf untuk menambahkan subnet
 
 ```
 echo '
